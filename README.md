@@ -6,11 +6,11 @@ Created repository
 [ansible-modules](https://github.com/uxtuahgp/ansible-modules.git)  
 
 ### Pre Task 2 ###  
-Got ansible rep from github
+Got ansible rep from github  
 
 ### Pre Tasks 3-5 ###  
-It does not work with default branch of the ansible repo
-SO i've been urged to get specific tag to make it compatible with my ansible version
+It does not work with default branch of the ansible repo  
+SO i've been urged to get specific tag to make it compatible with my ansible version  
 
 ```  
 alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ git checkout tags/v2.17.14
@@ -87,7 +87,8 @@ Created py file
 * Write file if it's required  
 * Set result properties  
 
-2. Created params.json file to test my module  
+### Task 4 ###  
+1. Created params.json file to test my module  
 ```  
 {
     "ANSIBLE_MODULE_ARGS": {
@@ -100,7 +101,7 @@ Created py file
 
 ```  
 
-3. Tested module with 3 different cases  
+2. Tested module with 3 different cases  
 * File exists and have the same content  
 * File exists and dont have the same content  
 * File does not exists  
@@ -123,3 +124,54 @@ upopabylasobaka(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ py
 
 ```  
 
+### Task 5 ###  
+Created playbook 
+```  
+---
+- name: check my_own_module
+  hosts: localhost
+  tasks: 
+  - name: run the module
+    my_own_module:
+      name: "hello"
+      new: true
+      path: "/tmp/666"
+      content: "ne u popa byla sobaka"
+    register: testout
+  - name: dump output
+    debug:
+      msg: '{{ testout }}'
+
+```  
+
+### Task 6 ###  
+Have set env to run playbook with custom module and tried to test module  
+```  
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules$ ANSIBLE_LIBRARY=./ansible/lib:./ansible/
+
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules$ ansible-playbook ./main.yml 
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [check my_own_module] *********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [run the module] **************************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [dump output] *****************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": {
+        "changed": true,
+        "failed": false,
+        "message": "File does not exists. Creating new file with out content",
+        "original_message": "hello"
+    }
+}
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+```  
