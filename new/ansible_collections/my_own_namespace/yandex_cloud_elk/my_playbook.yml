@@ -1,0 +1,5 @@
+---
+- name: check my_own_module
+  hosts: localhost
+  roles:
+    - my_role

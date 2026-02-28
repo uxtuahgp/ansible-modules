@@ -1,0 +1,12 @@
+---
+- name: run the module
+  my_own_module:
+    name: "{{ my_module_name }}"
+    new: "{{ my_module_new }}"
+    path: "{{ my_module_path }}"
+    content: "{{ my_module_content }}"
+  register: testout
+- name: dump output
+  debug:
+    msg: '{{ testout }}'
+

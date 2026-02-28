@@ -229,9 +229,63 @@ Made a playbook to test role
 - name: check my_own_module
   hosts: localhost
   roles:
-    - my_role
+    - my_own_namespace.yandex_cloud_elk.my_role
 
 ```  
 
 ### Task 12 ###  
 Added collection to the repo 
+
+### Task 13 ###  
+```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/my_own_namespace/yandex_cloud_elk$ ansible-galaxy collection build
+Created collection for my_own_namespace.yandex_cloud_elk at /home/alex/Study/ansible/ansible-modules/ansible-modules/my_own_namespace/yandex_cloud_elk/my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz
+
+```  
+
+### Task 14 ###  
+```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/my_own_namespace/yandex_cloud_elk$ mkdir ~/Study/ansible/ansible-modules/ansible-modules/new
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/my_own_namespace/yandex_cloud_elk$ cp my_playbook.yml ~/Study/ansible/ansible-modules/ansible-modules/new
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/my_own_namespace/yandex_cloud_elk$ cp my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz ~/Study/ansible/ansible-modules/ansible-modules/new/
+```  
+### Task 15 ###  
+```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/new$ ansible-galaxy collection install my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz 
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Installing 'my_own_namespace.yandex_cloud_elk:1.0.0' to '/home/alex/.ansible/collections/ansible_collections/my_own_namespace/yandex_cloud_elk'
+my_own_namespace.yandex_cloud_elk:1.0.0 was installed successfully
+
+```  
+### Task 16 ###  
+```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible-modules/new$ ansible-playbook my_playbook.yml 
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+/home/alex/.local/lib/python3.10/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (1.26.5) or chardet (6.0.0.post1)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+
+PLAY [check my_own_module] *********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [my_own_namespace.yandex_cloud_elk.my_role : run the module] ******************************************************************************************************************************************
+ok: [localhost]
+
+TASK [my_own_namespace.yandex_cloud_elk.my_role : dump output] *********************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": {
+        "changed": false,
+        "failed": false,
+        "message": "The same file content exists",
+        "original_message": "my_module"
+    }
+}
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+```  
