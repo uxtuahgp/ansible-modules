@@ -223,3 +223,15 @@ alex@uxtu-note:~/Study/ansible/ansible-modules/my_own_namespace/yandex_cloud_elk
 ```  
 
 ### Task 11 ###  
+Made a playbook to test role  
+```  
+---
+- name: check my_own_module
+  hosts: localhost
+  roles:
+    - my_role
+
+```  
+
+### Task 12 ###  
+Added collection to the repo 
