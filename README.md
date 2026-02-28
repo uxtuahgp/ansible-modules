@@ -9,7 +9,12 @@ Created repository
 Got ansible rep from github
 
 ### Pre Tasks 3-5 ###  
+It does not work with default branch of the ansible repo
+SO i've been urged to get specific tag to make it compatible with my ansible version
+
 ```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ git checkout tags/v2.17.14
+...
 alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ cd ~/Study/ansible/ansible-modules/ansible  
 alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ python3 -m venv venv  
 alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ . venv/bin/activate  
@@ -69,6 +74,11 @@ Done!
 
 
 ```  
+
+### Tasks 1-2 ###  
+Created py file   
+
+### Task 3 ###  
 
 
   
