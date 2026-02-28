@@ -144,7 +144,6 @@ Created playbook
 
 ```  
 
-### Task 6 ###  
 Have set env to run playbook with custom module and tried to test module  
 ```  
 (venv) alex@uxtu-note:~/Study/ansible/ansible-modules$ ANSIBLE_LIBRARY=./ansible/lib:./ansible/
@@ -175,3 +174,52 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 ```  
+
+### Task 6 ###  
+Have run playbook one more time to test on idempotence
+```  
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules$ ansible-playbook ./main.yml 
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [check my_own_module] *********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [run the module] **************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [dump output] *****************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": {
+        "changed": false,
+        "failed": false,
+        "message": "The same file content exists",
+        "original_message": "hello"
+    }
+}
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+```  
+### Tasks 7-8 ###  
+```  
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules$ deactivate
+alex@uxtu-note:~/Study/ansible/ansible-modules$ ansible-galaxy collection init my_own_namespace.yandex_cloud_elk
+- Collection my_own_namespace.yandex_cloud_elk was created successfully
+```  
+
+### Task 9 ###  
+Copied module file into plugins  
+
+### Task 10 ###  
+Created role 
+```  
+alex@uxtu-note:~/Study/ansible/ansible-modules/my_own_namespace/yandex_cloud_elk/roles$ ansible-galaxy role init my_role
+- Role my_role was created successfully
+
+```  
+
+### Task 11 ###  
