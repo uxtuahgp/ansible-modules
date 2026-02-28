@@ -80,5 +80,46 @@ Created py file
 
 ### Task 3 ###  
 
+1. Made a code modifications/additions to:  
+* Add parameters path and content  
+* Check if file with given path exists  
+* Check if file contains the same content as we passed  
+* Write file if it's required  
+* Set result properties  
 
-  
+2. Created params.json file to test my module  
+```  
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "name": "hello",
+        "new": true,
+        "path": "/tmp/555",
+        "content": "upopabylasobaka"
+    }
+}
+
+```  
+
+3. Tested module with 3 different cases  
+* File exists and have the same content  
+* File exists and dont have the same content  
+* File does not exists  
+```  
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ ls -l /tmp/555
+-rw-rw-r-- 1 alex alex 15 фев 28 18:47 /tmp/555
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ cat /tmp/555
+upopabylasobaka(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ python3 my_own_module.py params.json 
+
+{"changed": false, "original_message": "hello", "message": "The same file content exists", "invocation": {"module_args": {"name": "hello", "new": true, "path": "/tmp/555", "content": "upopabylasobaka"}}}
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ echo nebylosobaki > /tmp/555
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ python3 my_own_module.py params.json 
+
+{"changed": true, "original_message": "hello", "message": "File exists. Updating file with our content", "invocation": {"module_args": {"name": "hello", "new": true, "path": "/tmp/555", "content": "upopabylasobaka"}}}
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ rm /tmp/555
+(venv) alex@uxtu-note:~/Study/ansible/ansible-modules/ansible$ python3 my_own_module.py params.json 
+
+{"changed": true, "original_message": "hello", "message": "File does not exists. Creating new file with out content", "invocation": {"module_args": {"name": "hello", "new": true, "path": "/tmp/555", "content": "upopabylasobaka"}}}
+
+
+```  
+
